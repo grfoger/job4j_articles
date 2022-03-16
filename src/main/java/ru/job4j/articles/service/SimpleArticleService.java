@@ -32,9 +32,9 @@ public class SimpleArticleService implements ArticleService {
                 .peek(i -> LOGGER.info("Сгенерирована статья № {}", i))
                 .forEach((x) -> {
                     Article key = articleGenerator.generate(words);
+                    articleStore.save(key);
                     WeakReference<Article> value = new WeakReference<>(key);
                     weakMap.put(key, value);
-                    articleStore.save(weakMap.get(key).get());
                 });
     }
 }
